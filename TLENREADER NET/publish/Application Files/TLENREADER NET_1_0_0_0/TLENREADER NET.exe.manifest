@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly manifestVersion="1.0" xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1">
+  <asmv1:assemblyIdentity version="1.0.0.0" name="TLENREADER NET.exe" publicKeyToken="77f3f8c2053a442c" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="TLENREADER NET" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="TLENREADER NET.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet class="System.Security.PermissionSet" version="1" Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!-- UAC Manifest Options
+            If you want to change the Windows User Account Control level replace the 
+            requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+            If you want to utilize File and Registry Virtualization for backward 
+            compatibility then delete the requestedExecutionLevel node.
+        -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="2.0.50727.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="System.Core" version="3.5.0.0" publicKeyToken="b77a5c561934e089" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="WindowsBase" version="3.0.0.0" publicKeyToken="31bf3856ad364e35" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TLENREADER NET.exe" size="6656">
+      <assemblyIdentity name="TLENREADER NET" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>jrpZPIdoCk3v1zQNf6s1B5xZ2Zc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+<publisherIdentity name="CN=MARCIN-PC\marcin" issuerKeyHash="61b2391bb50b5f7c62e4d298c1f0d9bbcf06f3e6" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>silYS+/EPBLPjSGs6oJUGSIu+js=</DigestValue></Reference></SignedInfo><SignatureValue>R8JoJyxViygNWIBUIeFeSHzJjMRK5+xRz91yZA9YKnag4c/sFtdK7VmFd6FLudhymAqDzpWUSx+IHWutRWd/cf0WbjyZukcB+rPC8n17i+cCelxJ1+1LtBAgKxFJHCZ1eNR4PXPC1GUZKRb13V5NKaYVWzNPULMrSg+tTlHlffQ=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>ruOpVrFZ+u+WRhe12pM7RCVPIgQEJL9OBLQ+MHxRcfx+GLKVRLBuqqj+M3xPxjY+/yIEZxie+7hrV6EMIACyYPReRKHK/yYSQchwWFtQ3RIfHnDXqRxD02or0EC6gubyXuT8s4ged93T0QrjrPdtmCvcmf2z18ScuGMfGIiRjPE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="3bfa2e22195482eaac218dcf123cc4ef4b5829b2" Description="" Url=""><as:assemblyIdentity version="1.0.0.0" name="TLENREADER NET.exe" publicKeyToken="77f3f8c2053a442c" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=MARCIN-PC\marcin</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>4Sod7b6P+9md9Zrd0kD+6obG4K8=</DigestValue></Reference></SignedInfo><SignatureValue>QNmvljy3gyzikVMNmW+dkioCdnFLgh9elV5sPVulfxGZJS/aj1Jb3l/fpTo+Z0AbfY4OolJiQV/wZGzP8d8XlHdo5NbfELoZgIZWuEDvL70nBFZ6dK+ELBy3sVQy9i3BJaYoKVw39gOx1a7qezjM9AvEd1cBL9njpH9d7nIznIk=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>ruOpVrFZ+u+WRhe12pM7RCVPIgQEJL9OBLQ+MHxRcfx+GLKVRLBuqqj+M3xPxjY+/yIEZxie+7hrV6EMIACyYPReRKHK/yYSQchwWFtQ3RIfHnDXqRxD02or0EC6gubyXuT8s4ged93T0QrjrPdtmCvcmf2z18ScuGMfGIiRjPE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB2TCCAUKgAwIBAgIQZWGfRSMMTYJAOClUPhgKRzANBgkqhkiG9w0BAQUFADArMSkwJwYDVQQDHiAATQBBAFIAQwBJAE4ALQBQAEMAXABtAGEAcgBjAGkAbjAeFw0xMDAxMjcxNjQwMjlaFw0xMTAxMjcyMjQwMjlaMCsxKTAnBgNVBAMeIABNAEEAUgBDAEkATgAtAFAAQwBcAG0AYQByAGMAaQBuMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCu46lWsVn675ZGF7XakztEJU8iBAQkv04EtD4wfFFx/H4YspVEsG6qqP4zfE/GNj7/IgRnGJ77uGtXoQwgALJg9F5Eocr/JhJByHBYW1DdEh8ecNepHEPTaivQQLqC5vJe5PyziB533dPRCuOs922YK9yZ/bPXxJy4Yx8YiJGM8QIDAQABMA0GCSqGSIb3DQEBBQUAA4GBACiujmpWWzZUGQp2p29HUiuMAR9O27RfbAckCDiZ6UBDkSASNVQjyEgvgJZpRHeFftljzdhLd7I70/B/eRVHldqAququRv7xiEs8aL94xuHLXxdcA+WTB5e4kRedNtrrc9J//m/WbA4tTI+oHjsE6OMn7HUcGoGBvaSfnXMnSOIA</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
