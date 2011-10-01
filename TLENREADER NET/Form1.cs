@@ -70,7 +70,7 @@ namespace TLENREADER_NET
     
 
         public idx_rozm[] indeks = new idx_rozm[1];
-        public dat_rozm[] rozmowy = new dat_rozm[1];
+        //public dat_rozm[] rozmowy = new dat_rozm[1];
 
         public FileStream plk_idx_strm = null;
         public FileStream plk_dat_strm = null;
@@ -176,7 +176,7 @@ namespace TLENREADER_NET
             richTextBox_Wypowiedź.Clear();
 
             Array.Resize(ref indeks, 1);
-            Array.Resize(ref rozmowy, 1);
+            //Array.Resize(ref rozmowy, 1);
             exportujArchiwumToolStripMenuItem.Enabled = false;
             this.eksportujCałeArchiwumToolStripMenuItem.Enabled = false;
             this.eksportujCałeArchSMSToolStripMenuItem.Enabled = false;
@@ -209,16 +209,18 @@ namespace TLENREADER_NET
         private void Czytaj_dat(Boolean idx, Boolean init, Char[] name)
         {
             int chk = 0;
-            Array.Resize(ref rozmowy, 1);
+            
 
             Encoding ascii = Encoding.GetEncoding(1250);
             Encoding unicode = Encoding.Unicode;
             Byte[] asciibyte;
             Byte[] unibyte;
+            
 
             Int32 curNum = 0;
             if (init == false)
             {
+                richTextBox_Wypowiedź.Clear();
                 String curSel = "0";
 
                 ListView.SelectedListViewItemCollection LV_SEL = listView_ListaRozm.SelectedItems;
@@ -236,18 +238,19 @@ namespace TLENREADER_NET
             BinaryReader binr = new BinaryReader(plk_dat_strm, ascii);
             plk_dat_strm.Seek(0, SeekOrigin.Begin);
             long offset = 0;
+            if (init == false)
+            {
+                offset = indeks[curNum].offset;
+            }
             while (offset < plk_dat_strm.Length)
             {
                 plk_dat_strm.Seek(offset, SeekOrigin.Begin);
-
                 cht.time = binr.ReadDouble();
                 cht.flags = binr.ReadInt32();
                 cht.size = binr.ReadInt32();
                 cht.ID = binr.ReadInt32();
                 cht.unknown = binr.ReadInt32();
-                asciibyte = binr.ReadBytes(cht.size);
-                unibyte = Encoding.Convert(ascii, unicode, asciibyte);
-                cht.msg = unicode.GetString(unibyte);
+                
 
                 if (init == false)
                 {
@@ -259,6 +262,9 @@ namespace TLENREADER_NET
 
                         if (cht.ID == curNum)
                         {
+                            asciibyte = binr.ReadBytes(cht.size);
+                            unibyte = Encoding.Convert(ascii, unicode, asciibyte);
+                            cht.msg = unicode.GetString(unibyte);
 
                             //if ((cht.flags == 1088618497) || (cht.flags == 1179649))
                             if (Test_JA(cht.flags) == true)
@@ -270,52 +276,15 @@ namespace TLENREADER_NET
                                 kto = "NIE-JA";
                             }
                             //kto = "Nieznany".ToCharArray(); 
-                            String str1, str2 = "";
-                            str1 = kto;
-                            Array.Resize(ref rozmowy, rozmowy.Length + 1);
-                            rozmowy[rozmowy.GetUpperBound(0)].time = Oblicz_date(cht.time);
-                            rozmowy[rozmowy.GetUpperBound(0)].login = str1;
-                            rozmowy[rozmowy.GetUpperBound(0)].msg = cht.msg;
-
-
-                            //int y = 70;
-                            //if (cht.msg.Length > 70)
-                            //{
-                            //    for (int x = 0; x < cht.msg.Length; x++)
-                            //    {
-                            //        str2 = str2 + cht.msg[x];
-                            //        if (x == y)
-                            //        {
-                            //            ListViewItem LVI = new ListViewItem(str1);
-                            //            LVI.SubItems.Add(Oblicz_date(cht.time));
-                            //            LVI.SubItems.Add(str2);
-                            //            listView_TrescRozm.Items.Add(LVI);
-                            //            str2 = "";
-                            //            y = y + 70;
-                            //        }
-                            //        else if (x == (cht.msg.Length - 1))
-                            //        {
-                            //            ListViewItem LVI = new ListViewItem(str1);
-                            //            LVI.SubItems.Add(Oblicz_date(cht.time));
-                            //            LVI.SubItems.Add(str2);
-                            //            listView_TrescRozm.Items.Add(LVI);
-                            //        }
-
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    str2 = cht.msg;
-                            //    ListViewItem LVI = new ListViewItem(str1);
-                            //    LVI.SubItems.Add(Oblicz_date(cht.time));
-                            //    LVI.SubItems.Add(str2);
-
-                            //    listView_TrescRozm.Items.Add(LVI);
-
-
-                            //}
-
-
+                            
+                            if (richTextBox_Wypowiedź.Text == "")
+                            {
+                                richTextBox_Wypowiedź.Text = "->" + kto + " " + Oblicz_date(cht.time) + "\n" + cht.msg;
+                            }
+                            else
+                            {
+                                richTextBox_Wypowiedź.Text = richTextBox_Wypowiedź.Text + "\n" + "\n" + "->" + kto + " " + Oblicz_date(cht.time) + "\n" + cht.msg;
+                            }
 
                         }
                     }
@@ -323,7 +292,9 @@ namespace TLENREADER_NET
                     {
                         if (cht.ID == curNum)
                         {
-
+                            asciibyte = binr.ReadBytes(cht.size);
+                            unibyte = Encoding.Convert(ascii, unicode, asciibyte);
+                            cht.msg = unicode.GetString(unibyte);
                             //if (cht.flags == 1088618497)
                             if (Test_JA(cht.flags) == true)
                             {
@@ -341,52 +312,14 @@ namespace TLENREADER_NET
                                     }
                                 }
                             }
-
-
-
-
-                            String str1 = "", str2 = "";
-                            str1 = kto;
-                            //int y = 70;
-                            //if (cht.msg.Length > 70)
-                            //{
-                            //    for (int x = 0; x < cht.msg.Length; x++)
-                            //    {
-                            //        str2 = str2 + cht.msg[x];
-                            //        if (x == y)
-                            //        {
-                            //            ListViewItem LVI = new ListViewItem(str1);
-                            //            LVI.SubItems.Add(Oblicz_date(cht.time));
-                            //            LVI.SubItems.Add(str2);
-                            //            listView_TrescRozm.Items.Add(LVI);
-                            //            str2 = "";
-                            //            y = y + 70;
-                            //        }
-                            //        else if (x == (cht.msg.Length - 1))
-                            //        {
-                            //            ListViewItem LVI = new ListViewItem(str1);
-                            //            LVI.SubItems.Add(Oblicz_date(cht.time));
-                            //            LVI.SubItems.Add(str2);
-                            //            listView_TrescRozm.Items.Add(LVI);
-                            //        }
-
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    str2 = cht.msg;
-                            //    ListViewItem LVI = new ListViewItem(str1);
-                            //    LVI.SubItems.Add(Oblicz_date(cht.time));
-                            //    LVI.SubItems.Add(str2);
-
-                            //    listView_TrescRozm.Items.Add(LVI);
-
-
-                            //}
-                            Array.Resize(ref rozmowy, rozmowy.Length + 1);
-                            rozmowy[rozmowy.GetUpperBound(0)].time = Oblicz_date(cht.time);
-                            rozmowy[rozmowy.GetUpperBound(0)].login = str1;
-                            rozmowy[rozmowy.GetUpperBound(0)].msg = cht.msg;
+                            if (richTextBox_Wypowiedź.Text == "")
+                            {
+                                richTextBox_Wypowiedź.Text = "->" + kto + " " + Oblicz_date(cht.time) + "\n" + cht.msg;
+                            }
+                            else
+                            {
+                                richTextBox_Wypowiedź.Text = richTextBox_Wypowiedź.Text + "\n" + "\n" + "->" + kto + " " + Oblicz_date(cht.time) + "\n" + cht.msg;
+                            }
 
 
 
@@ -414,24 +347,7 @@ namespace TLENREADER_NET
 
 
             }
-            if (init == false)
-            {
-                richTextBox_Wypowiedź.Clear();
-                for (int c = 1; c < rozmowy.Length; c++)
-                {
-                    if (richTextBox_Wypowiedź.Text == "")
-                    {
-                        richTextBox_Wypowiedź.Text = "->" + rozmowy[c].login + " " + rozmowy[c].time + "\n" + rozmowy[c].msg;
-                    }
-                    else
-                    {
-                        richTextBox_Wypowiedź.Text = richTextBox_Wypowiedź.Text + "\n" + "\n" + "->" + rozmowy[c].login + " " + rozmowy[c].time + "\n" + rozmowy[c].msg;
-                    }
-
-
-                }
-
-            }
+            
         }
 
         private void Czytaj_idx(Boolean idx, Boolean init)
