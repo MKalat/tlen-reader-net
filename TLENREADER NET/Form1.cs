@@ -679,18 +679,21 @@ namespace TLENREADER_NET
 
                         offset = offset + 24 + cht.size;
                     }
+                   
                     for (Int32 i = 0; i < indeks.Length; i++)
                     {
                         if (indeks[i].id_rozm == curNum)
-                        {
+                        { 
                             rozm = File.CreateText(file_nam);
                             for (Int32 z = 0; z < text_rozm.Length; z++)
                             {
                                 rozm.WriteLine(text_rozm[z]);
                             }
+                            rozm.Close();
                         }
                     }
-
+                    
+                    
                 }
             }
 
@@ -702,6 +705,7 @@ namespace TLENREADER_NET
         {
             StreamWriter rozm;
             String file_nam;
+            String file_ext;
             String tekst;
             String[] text_rozm = new String[1];
             StringBuilder sb = new StringBuilder();
@@ -716,13 +720,16 @@ namespace TLENREADER_NET
             String curSel = "0";
 
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "txt files (*.txt)|*.txt";
+            sfd.Filter = "txt files (*.txt)|*.txt| csv files (*.csv)|*.csv";
             sfd.CheckFileExists = false;
             sfd.CheckPathExists = true;
             sfd.InitialDirectory = Environment.SpecialFolder.MyDocuments.ToString();
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 file_nam = sfd.FileName;
+                file_ext = file_nam[file_nam.Length].ToString();
+                file_ext = file_ext + file_nam[file_nam.Length - 1].ToString();
+                file_ext = file_ext + file_nam[file_nam.Length - 2].ToString();
 
                 ListView.SelectedListViewItemCollection LV_SEL = listView_ListaRozm.SelectedItems;
                 foreach (ListViewItem ITM in LV_SEL)
@@ -765,23 +772,54 @@ namespace TLENREADER_NET
                             {
                                 if (cht.ID == indeks[x].id_rozm)
                                 {
-                                    if (Test_JA(cht.flags) == false)
+                                    if (file_ext == "txt")
                                     {
-                                        sb.Append(indeks[x].name);
+                                        if (Test_JA(cht.flags) == false)
+                                        {
+                                            sb.Append(indeks[x].name);
+                                        }
+                                        else
+                                        {
+                                            sb.Append("JA");
+
+                                        }
+                                        sb.Append(" - ");
+                                        sb.Append(Oblicz_date(cht.time));
+                                        sb.Append(" - ");
+                                        sb.Append(cht.msg);
+                                        tekst = sb.ToString();
+                                        sb.Remove(0, sb.Length);
+                                        Array.Resize(ref text_rozm, text_rozm.Length + 1);
+                                        text_rozm[text_rozm.GetUpperBound(0)] = tekst;
                                     }
-                                    else
+                                    else if (file_ext == "csv")
                                     {
-                                        sb.Append("JA");
+                                        sb.Append("\"");
+                                        if (Test_JA(cht.flags) == false)
+                                        {
+                                            sb.Append(indeks[x].name);
+                                        }
+                                        else
+                                        {
+                                            sb.Append("JA");
+
+                                        }
+                                        sb.Append("\"");
+                                        sb.Append(",");
+                                        sb.Append("\"");
+                                        sb.Append(Oblicz_date(cht.time));
+                                        sb.Append("\"");
+                                        sb.Append(",");
+                                        sb.Append("\"");
+                                        sb.Append(cht.msg);
+                                        sb.Append("\"");
+                                        tekst = sb.ToString();
+                                        sb.Remove(0, sb.Length);
+                                        Array.Resize(ref text_rozm, text_rozm.Length + 1);
+                                        text_rozm[text_rozm.GetUpperBound(0)] = tekst;
+
 
                                     }
-                                    sb.Append(" - ");
-                                    sb.Append(Oblicz_date(cht.time));
-                                    sb.Append(" - ");
-                                    sb.Append(cht.msg);
-                                    tekst = sb.ToString();
-                                    sb.Remove(0, sb.Length);
-                                    Array.Resize(ref text_rozm, text_rozm.Length + 1);
-                                    text_rozm[text_rozm.GetUpperBound(0)] = tekst;
 
                                 }
                             }
@@ -846,17 +884,20 @@ namespace TLENREADER_NET
                 Byte[] unibyte;
 
                 StreamWriter rozm;
-                String file_nam, tekst;
+                String file_nam, tekst, file_ext;
                 String[] text_rozm = new String[1];
                 StringBuilder sb = new StringBuilder();
                 SaveFileDialog sfd = new SaveFileDialog();
-                sfd.Filter = "txt files (*.txt)|*.txt";
+                sfd.Filter = "txt files (*.txt)|*.txt| csv files (*.csv)|*.csv";
                 sfd.CheckFileExists = false;
                 sfd.CheckPathExists = true;
                 sfd.InitialDirectory = Environment.SpecialFolder.MyDocuments.ToString();
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     file_nam = sfd.FileName;
+                    file_ext = file_nam[file_nam.Length].ToString();
+                    file_ext = file_ext + file_nam[file_nam.Length - 1].ToString();
+                    file_ext = file_ext + file_nam[file_nam.Length - 2].ToString();
 
 
                     BinaryReader binr = new BinaryReader(plk_dat_strm, ascii);
@@ -880,25 +921,53 @@ namespace TLENREADER_NET
 
                             if (indeks[x].id_rozm == cht.ID)
                             {
-                                if (Test_JA(cht.flags) == false)
+                                if (file_ext == "txt")
                                 {
-                                    sb.Append(indeks[x].name);
+                                    if (Test_JA(cht.flags) == false)
+                                    {
+                                        sb.Append(indeks[x].name);
+                                    }
+                                    else
+                                    {
+                                        sb.Append("JA");
+
+                                    }
+                                    sb.Append(" - ");
+                                    sb.Append(Oblicz_date(cht.time));
+                                    sb.Append(" - ");
+                                    sb.Append(cht.msg);
+                                    tekst = sb.ToString();
+                                    sb.Remove(0, sb.Length);
+                                    Array.Resize(ref text_rozm, text_rozm.Length + 1);
+                                    text_rozm[text_rozm.GetUpperBound(0)] = tekst;
                                 }
-                                else
+                                else if (file_ext == "csv")
                                 {
-                                    sb.Append("JA");
+                                    sb.Append("\"");
+                                    if (Test_JA(cht.flags) == false)
+                                    {
+                                        sb.Append(indeks[x].name);
+                                    }
+                                    else
+                                    {
+                                        sb.Append("JA");
+
+                                    }
+                                    sb.Append("\"");
+                                    sb.Append(",");
+                                    sb.Append("\"");
+                                    sb.Append(Oblicz_date(cht.time));
+                                    sb.Append("\"");
+                                    sb.Append(",");
+                                    sb.Append("\"");
+                                    sb.Append(cht.msg);
+                                    sb.Append("\"");
+                                    tekst = sb.ToString();
+                                    sb.Remove(0, sb.Length);
+                                    Array.Resize(ref text_rozm, text_rozm.Length + 1);
+                                    text_rozm[text_rozm.GetUpperBound(0)] = tekst;
 
                                 }
-                                sb.Append(" - ");
-                                sb.Append(Oblicz_date(cht.time));
-                                sb.Append(" - ");
-                                sb.Append(cht.msg);
-                                tekst = sb.ToString();
-                                sb.Remove(0, sb.Length);
-                                Array.Resize(ref text_rozm, text_rozm.Length + 1);
-                                text_rozm[text_rozm.GetUpperBound(0)] = tekst;
-
-
 
                             }
 
@@ -1081,17 +1150,20 @@ namespace TLENREADER_NET
             Byte[] unibyte;
 
             StreamWriter rozm;
-            String file_nam, tekst, msg;
+            String file_nam, tekst, msg,file_ext;
             String[] text_rozm = new String[1];
             StringBuilder sb = new StringBuilder();
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "txt files (*.txt)|*.txt";
+            sfd.Filter = "txt files (*.txt)|*.txt| csv files (*.csv)|*.csv";
             sfd.CheckFileExists = false;
             sfd.CheckPathExists = true;
             sfd.InitialDirectory = Environment.SpecialFolder.MyDocuments.ToString();
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 file_nam = sfd.FileName;
+                file_ext = file_nam[file_nam.Length].ToString();
+                file_ext = file_ext + file_nam[file_nam.Length - 1].ToString();
+                file_ext = file_ext + file_nam[file_nam.Length - 2].ToString();
 
                 BinaryReader binr = new BinaryReader(sms_dat_strm, ascii);
 
@@ -1103,15 +1175,38 @@ namespace TLENREADER_NET
                     unibyte = Encoding.Convert(ascii, unicode, asciibyte);
                     msg = unicode.GetString(unibyte);
 
-                    sb.Append(indeks[x].name);
-                    sb.Append(" - ");
-                    sb.Append(Oblicz_date(indeks[x].czas));
-                    sb.Append(" - ");
-                    sb.Append(msg);
-                    tekst = sb.ToString();
-                    sb.Remove(0, sb.Length);
-                    Array.Resize(ref text_rozm, text_rozm.Length + 1);
-                    text_rozm[text_rozm.GetUpperBound(0)] = tekst;
+                    if (file_ext == "txt")
+                    {
+
+                        sb.Append(indeks[x].name);
+                        sb.Append(" - ");
+                        sb.Append(Oblicz_date(indeks[x].czas));
+                        sb.Append(" - ");
+                        sb.Append(msg);
+                        tekst = sb.ToString();
+                        sb.Remove(0, sb.Length);
+                        Array.Resize(ref text_rozm, text_rozm.Length + 1);
+                        text_rozm[text_rozm.GetUpperBound(0)] = tekst;
+                    }
+                    else if (file_ext == "csv")
+                    {
+                        sb.Append("\"");
+                        sb.Append(indeks[x].name);
+                        sb.Append("\"");
+                        sb.Append(",");
+                        sb.Append("\"");
+                        sb.Append(Oblicz_date(indeks[x].czas));
+                        sb.Append("\"");
+                        sb.Append(",");
+                        sb.Append("\"");
+                        sb.Append(msg);
+                        sb.Append("\"");
+                        tekst = sb.ToString();
+                        sb.Remove(0, sb.Length);
+                        Array.Resize(ref text_rozm, text_rozm.Length + 1);
+                        text_rozm[text_rozm.GetUpperBound(0)] = tekst;
+
+                    }
 
                 }
 

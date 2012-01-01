@@ -125,7 +125,6 @@
             this.otwórzArchiwumTlen7ToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
             this.otwórzArchiwumTlen7ToolStripMenuItem.Text = "Otwórz archiwum Tlen 7";
             this.otwórzArchiwumTlen7ToolStripMenuItem.Visible = false;
-            //this.otwórzArchiwumTlen7ToolStripMenuItem.Click += new System.EventHandler(this.otwórzArchiwumTlen7ToolStripMenuItem_Click);
             // 
             // otwórzArchSMSTlen6ToolStripMenuItem
             // 
@@ -203,7 +202,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(205, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "(C) Copyright by Marcin Kałat 2010 - 2011";
+            this.label3.Text = "(C) Copyright by Marcin Kałat 2010 - 2012";
             // 
             // listView_ListaRozm
             // 
