@@ -482,7 +482,7 @@ namespace TLENREADER_NET
             if (result == DialogResult.OK)
             {
                 foldername = FBD.SelectedPath;
-                path_dat = foldername + "\\chats.dat";
+                path_dat = foldername + Path.DirectorySeparatorChar + "chats.dat";
 
 
                 if (File.Exists(path_dat))
@@ -525,8 +525,8 @@ namespace TLENREADER_NET
             if (result == DialogResult.OK)
             {
                 foldername = FBD.SelectedPath;
-                path_dat = foldername + "\\chats.dat";
-                path_idx = foldername + "\\chats.idx";
+                path_dat = foldername + Path.DirectorySeparatorChar + "chats.dat";
+                path_idx = foldername + Path.DirectorySeparatorChar + "chats.idx";
 
                 if (File.Exists(path_idx))
                 {
@@ -611,7 +611,7 @@ namespace TLENREADER_NET
             sfd.Filter = "txt files (*.txt)|*.txt|csv files (*.csv)|*.csv";
             sfd.CheckFileExists = false;
             sfd.CheckPathExists = true;
-            sfd.InitialDirectory = Environment.SpecialFolder.MyDocuments.ToString();
+            
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 file_nam = sfd.FileName;
@@ -804,7 +804,7 @@ namespace TLENREADER_NET
             sfd.Filter = "txt files (*.txt)|*.txt|csv files (*.csv)|*.csv";
             sfd.CheckFileExists = false;
             sfd.CheckPathExists = true;
-            sfd.InitialDirectory = Environment.SpecialFolder.MyDocuments.ToString();
+            //sfd.InitialDirectory = Environment.SpecialFolder.MyDocuments.ToString();
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 file_nam = sfd.FileName;
@@ -972,26 +972,29 @@ namespace TLENREADER_NET
 
         private void TlenReaderNET_Load(object sender, EventArgs e)
         {
-            String myPath = Environment.CurrentDirectory;
-            Process ps = new Process();
-            const int ERROR_FILE_NOT_FOUND = 2;
-            const int ERROR_ACCESS_DENIED = 5;
-            try
+            if (!(File.Exists("portable")))
             {
-                ps.StartInfo.FileName = myPath + "\\" + "MK_AUTOUPDATE.exe";
-                ps.Start();
-            }
-            catch (Win32Exception ex)
-            {
-                if (ex.NativeErrorCode == ERROR_FILE_NOT_FOUND)
+                String myPath = Environment.CurrentDirectory;
+                Process ps = new Process();
+                const int ERROR_FILE_NOT_FOUND = 2;
+                const int ERROR_ACCESS_DENIED = 5;
+                try
                 {
-                    MessageBox.Show(ex.Message + ". Sprawdź ścieżkę.", "Tlen Reader Net", MessageBoxButtons.OK);
+                    ps.StartInfo.FileName = myPath + Path.DirectorySeparatorChar + "MK_AUTOUPDATE.exe";
+                    ps.Start();
                 }
-
-                else if (ex.NativeErrorCode == ERROR_ACCESS_DENIED)
+                catch (Win32Exception ex)
                 {
+                    if (ex.NativeErrorCode == ERROR_FILE_NOT_FOUND)
+                    {
+                        MessageBox.Show(ex.Message + ". Sprawdź ścieżkę.", "Tlen Reader Net", MessageBoxButtons.OK);
+                    }
 
-                    MessageBox.Show(ex.Message + ". Nie masz uprawnień aby uruchomić updatera.", "Tlen Reader Net", MessageBoxButtons.OK);
+                    else if (ex.NativeErrorCode == ERROR_ACCESS_DENIED)
+                    {
+
+                        MessageBox.Show(ex.Message + ". Nie masz uprawnień aby uruchomić updatera.", "Tlen Reader Net", MessageBoxButtons.OK);
+                    }
                 }
             }
         }
@@ -1017,7 +1020,7 @@ namespace TLENREADER_NET
                 sfd.Filter = "txt files (*.txt)|*.txt|csv files (*.csv)|*.csv";
                 sfd.CheckFileExists = false;
                 sfd.CheckPathExists = true;
-                sfd.InitialDirectory = Environment.SpecialFolder.MyDocuments.ToString();
+                //sfd.InitialDirectory = Environment.SpecialFolder.MyDocuments.ToString();
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     file_nam = sfd.FileName;
@@ -1175,8 +1178,8 @@ namespace TLENREADER_NET
             if (result == DialogResult.OK)
             {
                 foldername = FBD.SelectedPath;
-                pathsms_dat = foldername + "\\sms.dat";
-                pathsms_idx = foldername + "\\sms.idx";
+                pathsms_dat = foldername + Path.DirectorySeparatorChar + "sms.dat";
+                pathsms_idx = foldername + Path.DirectorySeparatorChar + "sms.idx";
 
                 if (File.Exists(pathsms_idx))
                 {
@@ -1330,7 +1333,7 @@ namespace TLENREADER_NET
             sfd.Filter = "txt files (*.txt)|*.txt|csv files (*.csv)|*.csv";
             sfd.CheckFileExists = false;
             sfd.CheckPathExists = true;
-            sfd.InitialDirectory = Environment.SpecialFolder.MyDocuments.ToString();
+            //sfd.InitialDirectory = Environment.SpecialFolder.MyDocuments.ToString();
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 file_nam = sfd.FileName;
